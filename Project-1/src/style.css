@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .typewriter {
+    @apply relative text-left text-[5vmin] text-[#8bf] font-bold font-[Lato,sans-serif] ml-8 my-4;
+  }
+
+  .typewriter::before {
+    content: "";
+    animation: typeCycle 9s steps(30, end) infinite;
+  }
+
+  .typewriter::after {
+    content: "";
+    border-right: 2px solid currentColor;
+    animation: blink 0.7s steps(1, start) infinite;
+  }
+
+  @keyframes typeCycle {
+    0%, 20%   { content: "You are here to do Now"; }
+    25%, 45%  { content: "Make it Happen"; }
+    50%, 70%  { content: "Build. Learn. Repeat."; }
+    75%, 95%  { content: "Code. Create. Conquer."; }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+  }
+}
