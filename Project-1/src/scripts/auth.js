@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, sendEmailVerification ,GoogleAuthProvider, 
     signInWithPopup } from 'firebase/auth';
 import {auth} from './firebase.js';
+import { getDoc } from 'firebase/firestore';
 
 
 // Function to handle user signup
@@ -46,4 +47,21 @@ export  async function handlesignwithgoogle(){
     
     
     
+}
+
+export async function handleloginwithgoogle(){
+    try{
+        const provider =new GoogleAuthProvider();
+        const usercredential = await signInWithPopup(auth,provider);
+        const user = usercredential.user;
+
+        const userRef = doc(doc,"user",user.uid);
+        const usersnap = getDoc(usersnap);
+
+        if(usersnap){
+            console.log("User login successfully")
+        }
+    }catch(e){
+        console.log(e);
+    }
 }

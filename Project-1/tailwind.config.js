@@ -2,7 +2,9 @@
 export default {
   content: ["./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./src/Addevent.html"],
+    "./src/Addevent.html",
+    "./userdashboard.html",
+  ],
   theme: {
     extend: {},
   },
