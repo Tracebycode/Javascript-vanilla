@@ -1,70 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="src/style.css"/>
-   <title>Task Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css"/>
+    <title>Document</title>
 </head>
-<body>
- <div class="main-conatiner flex flex-col h-screen">
+<body >
+  <div class="main-div flex flex-col h-screen">
+        <!-- Navbar -->
+      
 
 
-   <!-- Navbar Content  -->
+       <div>
+        
 
-   <nav class="bg-gray-100 px-4 py-1 z-50 shadow-md flex-none">
-        <div class="flex flex-row justify-between  justify-center  items-center">
-        <div class="flex">
-             <button id="logoutBtn" type="button"
-            class="text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
-    
-        <!-- Correct SVG in vanilla HTML -->
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-      viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
-      class="w-6 h-6 me-2">
-      <path stroke-linecap="round" stroke-linejoin="round"
-        d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-        </svg>Log out
-         </button>
-        </div>
-
-
-
-
-      <div class="relative">
-            <input class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Search for your tasks"  />
-        <button
-        class="absolute top-1 right-1 flex items-center rounded bg-slate-800 py-1 px-2.5 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-        type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2">
-        <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
-        </svg>Search</button> 
-        </div>
-           
-        <div class="flex space-x-2">
-        <div class="relative w-8 h-8 bg-black rounded-full ">
-        <span class="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-blue-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
-        </div>
-        <div class="w-8 h-8 bg-gray-100 p-2 rounded shadow">
-                <img src="./public/icons8-settings-50.svg" alt="Settings Icon" class="w-full h-full object-contain" />
-                </div> 
-        </div>
-
-        </div>
-   </nav>
-
-   <!-- Navbar Content Added -->
-
-
-
-
-   <!-- Main content of adding task and sidebar -->
-    <div class="flex flex-1  overflow-hidden">
-         <!-- Aside menu -->
-
-              <div class="w-1/5 flex flex-col border-r-2  rounded-md shadow-sm h-full">
+        <!-- Main content -->
+        <div class="flex flex-1">
+            <!-- sidebar -->
+            <div class="w-1/5  h-full bg-blue-100 border-r-2  shadow-sm">
                 
-               <aside id="sidebar" class="transition-transform -translate-x-full sm:translate-x-0 h-full" aria-label="Sidebar">
+               <aside id="sidebar" class=" transition-transform -translate-x-full sm:translate-x-0 " aria-label="Sidebar">
                 <div class="h-full px-3 py-4 overflow-y-auto bg-grey-100">
                 <ul class="space-y-2 font-medium">
                   <li>
@@ -124,54 +80,22 @@
       </ul>
    </div>
 </aside>
+                <div>
 
-
-<div class="mt-20">
-   Many menu
-</div>
-              </div>
-
-               
-
-
-
-         <!-- Aside Menu ended -->
-
-         <div class="right-section-conatiner relative w-4/5 flex flex-col ">
-                  <div class="flex  mt-3 justify-between  mx-5">
-
-                     <div> <button id ="addtaskBtn" type="button" class="text-white relative bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2 z-50">+ Add Task</button></div>
-                     <div><button type="button" class="text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2"><h1 class="">Task manager</h1></button></div>
-
-            
+                </div>
 
             </div>
-      <!-- Body of the task right section -->
-       <div class="task-container  flex flex-wrap gap-4 p-5 overflow-y-auto ">
-        
-
-       </div>
-
-
-       </div>
 
 
 
-         </div>
+            <div class="w-4/5 bg-blue-900 h-full">hellp</div>
+        </div>
 
 
-    
+    </div>
 
 
-
-
-
-
-
- </div>
-   
-
-
-  <script type="module" src="/src/main.js"></script>
+    </div>
+    <script src="./src/scripts/script1.js"></script>
 </body>
 </html>
