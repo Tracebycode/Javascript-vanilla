@@ -34,33 +34,6 @@ export function taskfromhandling(){
 
 }
 
-// export function taskfromhandling(){
-// console.log('Form handlind Started')
-// const addtaskBtn = document.getElementById('addtaskBtn')
-// const Parentconatainer_addtask=document.querySelector('.right-section-conatiner')
-
-// let taskform = null;
-
-// addtaskBtn.addEventListener('click',()=>{
-//     if(!taskform){
-//         taskform=createtaskform();
-//         const taskContainer = document.querySelector('.task-container');
-//         Parentconatainer_addtask.insertBefore(taskform, taskContainer);
-//         addtaskBtn.textContent ='Close';
-        
-//     }else{
-//         Parentconatainer_addtask.removeChild(taskform);
-//         taskform=null;
-//         addtaskBtn.textContent='+Add button'
-//     }
-
-
-// })
-
-// console.log('form handling ended')
-
-// }
-
 
 
 

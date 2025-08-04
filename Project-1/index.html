@@ -45,32 +45,70 @@
 
 
     <!-- Right section content -->
-    <div class="right-section-conatiner relative w-2/3 flex flex-col ">
-      <div class="flex  mt-3 justify-between  mx-5">
-
-        <div> <button id ="addtaskBtn" type="button" class="text-white relative bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2 z-50">+ Add Task</button></div>
-        
-        
-        
-        <div><button type="button" class="text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2"><h1 class="">Task manager</h1></button></div>
-
-
-      </div>
-      <!-- Body of the task right section -->
-       <div class="task-container">
-        
-
-       </div>
+    <div class="right-section-container relative w-2/3 flex flex-col justify-center items-center bg-slate-50 px-8 lg:px-16">
+      <!-- Welcome Headline -->
+      <h1 class="text-4xl lg:text-5xl font-bold text-slate-800 mb-8 leading-tight text-center">
+        Welcome to <span class="text-[#1da1f2]">TaskFlow</span>
+      </h1>
       
-
-        <!-- //Adding the task form and Container -->
+      <!-- Brief Description -->
+      <p class="text-lg lg:text-xl text-slate-600 mb-12 leading-relaxed max-w-lg mx-auto text-center">
+        Transform your productivity with our intuitive task management platform. 
+        Organize, prioritize, and accomplish more with less stress.
+      </p>
+      
+      <!-- Features List -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-4xl w-full">
+        <div class="feature-card bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 group">
+          <div class="flex items-start space-x-4">
+            <div class="feature-icon text-3xl group-hover:scale-110 transition-transform duration-200">📝</div>
+            <div>
+              <h3 class="font-semibold text-slate-800 text-lg mb-2">Smart Task Creation</h3>
+              <p class="text-slate-500 text-sm leading-relaxed">Quick and intuitive task setup with smart suggestions</p>
+            </div>
+          </div>
+        </div>
         
-
+        <div class="feature-card bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 group">
+          <div class="flex items-start space-x-4">
+            <div class="feature-icon text-3xl group-hover:scale-110 transition-transform duration-200">🎯</div>
+            <div>
+              <h3 class="font-semibold text-slate-800 text-lg mb-2">Priority Management</h3>
+              <p class="text-slate-500 text-sm leading-relaxed">Focus on what matters most with intelligent prioritization</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 group">
+          <div class="flex items-start space-x-4">
+            <div class="feature-icon text-3xl group-hover:scale-110 transition-transform duration-200">📊</div>
+            <div>
+              <h3 class="font-semibold text-slate-800 text-lg mb-2">Progress Tracking</h3>
+              <p class="text-slate-500 text-sm leading-relaxed">Visual insights into your productivity and achievements</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 group">
+          <div class="flex items-start space-x-4">
+            <div class="feature-icon text-3xl group-hover:scale-110 transition-transform duration-200">⚡</div>
+            <div>
+              <h3 class="font-semibold text-slate-800 text-lg mb-2">Lightning Fast</h3>
+              <p class="text-slate-500 text-sm leading-relaxed">Instant sync across all devices for seamless workflow</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Call-to-Action Button -->
+      <button class="get-started-btn bg-[#1da1f2] hover:bg-[#1da1f2]/90 text-white font-semibold py-4 px-10 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-[#1da1f2]/50">
+        Get Started
+      </button>
     </div>  
       <!-- Add task from end here -->
     
   </main>
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="./src/Landingscipt.js"></script>
   </body>
 
 </html>

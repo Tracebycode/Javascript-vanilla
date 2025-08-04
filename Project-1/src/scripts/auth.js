@@ -1,7 +1,8 @@
 import { createUserWithEmailAndPassword, sendEmailVerification ,GoogleAuthProvider, 
     signInWithPopup } from 'firebase/auth';
-import {auth} from './firebase.js';
-import { getDoc } from 'firebase/firestore';
+import {auth, db} from './firebase.js';
+
+import { doc,getDoc,setDoc } from 'firebase/firestore';
 
 
 // Function to handle user signup
@@ -33,8 +34,24 @@ export  async function handlesignwithgoogle(){
         const provider =new GoogleAuthProvider();
        const usercredential= await signInWithPopup(auth,provider);
        const user = usercredential.user;
-        alert(`Hey !${user.displayName}, you signed successfully! kindly login to continue`);
-        console.log("User signed in with Google:", user);
+
+
+       const userRef = doc(db,"users",user.uid);
+       const usersnap =await getDoc(userRef);
+
+
+       if (usersnap.exists()) {
+      
+      alert(`Welcome back, ${user.displayName}! Redirecting to dashboard...`);
+    } else {
+      await setDoc(userRef, {
+        name: user.displayName,
+        email: user.email,
+        createdAt: new Date(),
+        provider: "google",
+      })
+    }
+
         return true;
 
 
@@ -55,13 +72,21 @@ export async function handleloginwithgoogle(){
         const usercredential = await signInWithPopup(auth,provider);
         const user = usercredential.user;
 
-        const userRef = doc(doc,"user",user.uid);
-        const usersnap = getDoc(usersnap);
+        const userRef = doc(db,"users",user.uid);
+        const usersnap = await getDoc(userRef);
 
-        if(usersnap){
-            console.log("User login successfully")
-        }
-    }catch(e){
-        console.log(e);
+    if (usersnap.exists()) {
+      alert(`Welcome back, ${user.displayName}! Redirecting to dashboard...`);
+      return true;
+    } else {
+    //   await signOut(auth); // prevent access
+      alert("No account found with this Google login. Please sign up first.");
+      return false;
     }
+
+  } catch (error) {
+    console.error("Error signing in with Google:", error);
+    alert("Google login failed. Please try again.");
+    return false;
+  }
 }
