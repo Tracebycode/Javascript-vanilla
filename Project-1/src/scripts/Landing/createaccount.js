@@ -1,4 +1,4 @@
-import {handlesignupwithemail,handlesignwithgoogle } from './auth';
+import {handlesignupwithemail,handlesignwithgoogle } from '../auth';
 
 export function  createaccount(params) {
 

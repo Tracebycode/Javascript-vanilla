@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, sendEmailVerification ,GoogleAuthProvider, 
-    signInWithPopup } from 'firebase/auth';
+    signInWithPopup, 
+    onAuthStateChanged} from 'firebase/auth';
 import {auth, db} from './firebase.js';
 
 import { doc,getDoc,setDoc } from 'firebase/firestore';
@@ -42,7 +43,7 @@ export  async function handlesignwithgoogle(){
 
        if (usersnap.exists()) {
       
-      alert(`Welcome back, ${user.displayName}! Redirecting to dashboard...`);
+      alert(`Welcome back, ${user.displayName}! You are already registered.! Kindly login to continue.`);
     } else {
       await setDoc(userRef, {
         name: user.displayName,
@@ -50,6 +51,7 @@ export  async function handlesignwithgoogle(){
         createdAt: new Date(),
         provider: "google",
       })
+      alert(`Welcome, ${user.displayName}! Your account has been created successfully.`);
     }
 
         return true;
@@ -76,7 +78,16 @@ export async function handleloginwithgoogle(){
         const usersnap = await getDoc(userRef);
 
     if (usersnap.exists()) {
-      alert(`Welcome back, ${user.displayName}! Redirecting to dashboard...`);
+      // Redirect to user dashboard after a short delay
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log("User is signed in:", user.email);
+         setTimeout(() => {
+    window.location.href = "/userdashboard.html"; // 🔁 Change path if needed
+  }, 1500);
+        } 
+      });
+      
       return true;
     } else {
     //   await signOut(auth); // prevent access

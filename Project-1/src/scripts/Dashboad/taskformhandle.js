@@ -100,8 +100,7 @@ function createtaskform(){
 
         console.log('Task Details:', taskDetails);
 
-        // Example: You could send `taskDetails` to backend or render it in DOM
-        // close popup after submit
+       
         
         addtaskcard(taskDetails);
         addtaskBtn.click();

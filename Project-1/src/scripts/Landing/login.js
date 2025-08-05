@@ -1,4 +1,4 @@
-import  {handleloginwithgoogle} from './auth';
+import  {handleloginwithgoogle} from '../auth';
 
 
 
