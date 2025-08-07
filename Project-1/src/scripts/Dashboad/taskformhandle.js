@@ -1,4 +1,5 @@
-import { addtaskcard } from "./Card";
+import { auth } from "../firebase";
+import { addtask, addtaskcard } from "./Card";
 
 
 export function taskfromhandling(){
@@ -91,8 +92,15 @@ function createtaskform(){
             </div>
           </form>`;
 
-        formcontainer.querySelector('#taskForm').addEventListener('submit', (e) => {
+        formcontainer.querySelector('#taskForm').addEventListener('submit', async(e) => {
         e.preventDefault(); // Prevent page reload
+
+        const user = auth.currentUser;
+        if(!user){
+          alert("Please login to add a task.");
+          return;
+        }
+
 
         const formData = new FormData(e.target);
         const taskDetails = Object.fromEntries(formData.entries());
@@ -100,10 +108,26 @@ function createtaskform(){
 
         console.log('Task Details:', taskDetails);
 
+        try{
+          const taskRef = await addtask(taskDetails,user.uid);
+
+          console.log('Task added successfully to the firebase', taskRef);
+          if(taskRef){
+            addtaskcard(taskDetails);
+            console.log('Task card added to the UI');
+            addtaskBtn.click();//close the form aftre adding the task
+          }else{
+            console,error("Failed to add task to the container");
+          }
+
+        }catch(error){
+          console.error("Error adding task:", error);
+          alert("Failed to add task. Please try again.");
+        }
+
        
         
-        addtaskcard(taskDetails);
-        addtaskBtn.click();
+        
 
     });
 

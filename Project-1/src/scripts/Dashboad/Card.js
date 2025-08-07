@@ -1,36 +1,50 @@
+import {db} from '../firebase.js';
+import {collection,addDoc} from 'firebase/firestore';
 
- export function addtaskcard(task){
-  const card =document.createElement('div');
-  card.className="taskcard bg-white shadow-lg flex flex-col justify-between mx-5 my-3 p-5 rounded-lg w-72 border border-gray-200"
+export async function addtask(taskDetails,userId){
+  try{
+     const taskcollectionRef =collection(db,`users/${userId}/tasks`)
+     const docRef = await addDoc(taskcollectionRef,{
+        ...taskDetails,})
 
-  card.innerHTML=`<!-- Title -->
-  <h1 class="text-xl font-bold text-gray-800 mb-2">${task.taskTitle}</h1>
+          return { id: docRef.id, ...taskDetails };
 
-  <!-- Minimal Details -->
-  <div class="text-sm text-gray-600 space-y-1">
-    <p><span class="font-semibold">Priority:</span> ${task.taskPriority}</p>
-    <p><span class="font-semibold">Status:</span>${task.taskStatus}</p>
-    <p><span class="font-semibold">Date:</span> ${task.taskDueDate}</p>
+  }catch(error){
+    console.error("Error adding task:", error);
+    throw new Error("Failed to add task");
+  }
+
+}
+ 
+ 
+ 
+ export function addtaskcard(task){ 
+  const card = document.createElement('div');
+card.className = "taskcard bg-white shadow-md flex justify-between items-center mx-4 my-2 px-4 py-3 rounded-lg border border-gray-200 w-7/8";
+
+// Build a compact horizontal layout
+card.innerHTML = `
+  <div class="flex flex-col">
+    <h2 class="text-base font-semibold text-gray-800">${task.taskTitle}</h2>
+    <p class="text-sm text-gray-500">${task.taskDueDate} • ${task.taskPriority} • ${task.taskStatus}</p>
   </div>
 
-  <!-- More Details (Hidden by default) -->
-  <div class="moreDetails text-sm text-gray-600 space-y-1 mt-2 hidden">
-    <p><span class="font-semibold">Time:</span> 14:30</p>
-    <p><span class="font-semibold">Category:</span>${task.category}</p>
-    <p><span class="font-semibold">Created At:</span> ${task.createdAt}</p>
-    <p><span class="font-semibold">Updated At:</span> 2025-07-04</p>
-    <p><span class="font-semibold">Comments:</span> ${task.comments || 'None'}</p>
-    <p><span class="font-semibold">Attachments:</span> File1.pdf</p>
+  <div class="flex items-center gap-2 text-sm text-gray-600">
+    <button class="toggleBtn text-blue-600 hover:underline">Details</button>
+    <button class="text-yellow-500 hover:text-yellow-600">Edit</button>
+    <button class="text-red-500 hover:text-red-600">Delete</button>
   </div>
+`;
 
-  <!-- Buttons -->
-  <div class="flex justify-between mt-4">
-    <button class="toggleBtn bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition duration-200">Show More</button>
-    <div class="space-x-2">
-      <button class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 transition duration-200">Edit</button>
-      <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-200">Delete</button>
-    </div>
-  </div>`
+// Add the hidden expandable section if needed
+const moreDetails = document.createElement('div');
+moreDetails.className = "moreDetails hidden text-sm text-gray-600 mt-2 w-full px-4";
+moreDetails.innerHTML = `
+  <p><span class="font-semibold">Category:</span> ${task.category}</p>
+  <p><span class="font-semibold">Created At:</span> ${task.createdAt}</p>
+  <p><span class="font-semibold">Comments:</span> ${task.comments || 'None'}</p>
+`;
+card.appendChild(moreDetails);
 
   const taskcontainer = document.querySelector('.task-container');
   taskcontainer.appendChild(card)
