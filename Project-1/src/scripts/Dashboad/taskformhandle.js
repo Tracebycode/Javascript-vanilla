@@ -14,24 +14,37 @@ export function taskfromhandling(){
 
   const overlay = document.createElement('div')
   overlay.className = 'absolute  inset-0 bg-black bg-opacity-30 backdrop-blur-sm hidden flex  justify-center items-center z-40'; 
-  Parentcontainer.append(overlay);
-
-  addtaskBtn.addEventListener('click',()=>{
-    if(!taskform){
-      taskform = createtaskform()
-      overlay.append(taskform);
-      overlay.classList.remove('hidden')
-      addtaskBtn.textContent='Close';
-    }else{
-      overlay.classList.add('hidden');
-
-      
-      overlay.removeChild(taskform)
-      taskform=null;
-      addtaskBtn.textContent='+ Add Task';
-    }
-  })
+  document.body.append(overlay);
   
+
+
+
+
+
+
+function openForm() {
+    if (!taskform) {
+      taskform = createtaskform(closeForm);
+      overlay.append(taskform);
+      overlay.classList.remove('hidden');
+      addtaskBtn.textContent = 'Close';
+    }
+  }
+
+  function closeForm() {
+    if (taskform) {
+      overlay.classList.add('hidden');
+      overlay.removeChild(taskform);
+      taskform = null;
+      addtaskBtn.textContent = '+ Add Task';
+    }
+  }
+
+  addtaskBtn.addEventListener('click', () => {
+    if (!taskform) openForm();
+    else closeForm();
+  });
+
 
 }
 
@@ -39,7 +52,7 @@ export function taskfromhandling(){
 
 
 
-function createtaskform(){
+function createtaskform(closeForm){
     const formcontainer = document.createElement('div');
     formcontainer.className='flex  px-5  max-w-md mx-auto w-full  border-2 border-gray-300 shadow-lg rounded-lg items-center justify-center z-50 '
     formcontainer.innerHTML=`
@@ -104,21 +117,15 @@ function createtaskform(){
 
         const formData = new FormData(e.target);
         const taskDetails = Object.fromEntries(formData.entries());
-        taskDetails.createdAt = new Date().toLocaleString()
-
+       
         console.log('Task Details:', taskDetails);
 
         try{
           const taskRef = await addtask(taskDetails,user.uid);
 
           console.log('Task added successfully to the firebase', taskRef);
-          if(taskRef){
-            addtaskcard(taskDetails);
-            console.log('Task card added to the UI');
-            addtaskBtn.click();//close the form aftre adding the task
-          }else{
-            console,error("Failed to add task to the container");
-          }
+         
+          closeForm(); // Add the task card to the UI          
 
         }catch(error){
           console.error("Error adding task:", error);

@@ -1,11 +1,13 @@
 import {db} from '../firebase.js';
-import {collection,addDoc} from 'firebase/firestore';
+import { collection, addDoc, orderBy, onSnapshot, query,serverTimestamp } from 'firebase/firestore';
 
 export async function addtask(taskDetails,userId){
   try{
      const taskcollectionRef =collection(db,`users/${userId}/tasks`)
      const docRef = await addDoc(taskcollectionRef,{
-        ...taskDetails,})
+        ...taskDetails,
+            createdAt: serverTimestamp() 
+})
 
           return { id: docRef.id, ...taskDetails };
 
@@ -21,7 +23,7 @@ export async function addtask(taskDetails,userId){
  export function addtaskcard(task){ 
   const card = document.createElement('div');
 card.className = "taskcard bg-white shadow-md flex justify-between items-center mx-4 my-2 px-4 py-3 rounded-lg border border-gray-200 w-7/8";
-
+  card.id = task.id;
 // Build a compact horizontal layout
 card.innerHTML = `
   <div class="flex flex-col">
@@ -32,7 +34,7 @@ card.innerHTML = `
   <div class="flex items-center gap-2 text-sm text-gray-600">
     <button class="toggleBtn text-blue-600 hover:underline">Details</button>
     <button class="text-yellow-500 hover:text-yellow-600">Edit</button>
-    <button class="text-red-500 hover:text-red-600">Delete</button>
+    <button  class="deleteBtn text-red-500 hover:text-red-600">Delete</button>
   </div>
 `;
 
@@ -66,7 +68,52 @@ card.appendChild(moreDetails);
 }
 
 
+export function listentoTask(userId){
+  const taskcollectionRef = collection(db,`users/${userId}/tasks`);
+  const q = query(taskcollectionRef, orderBy('createdAt', 'desc'));
+  onSnapshot(q,(snapshot)=>{
+    const taskcontainer =document.querySelector('.task-container');
+    taskcontainer.innerHTML = '';  
+    snapshot.forEach((doc) => {
+      const task = doc.data();
+      task.id = doc.id; 
+      addtaskcard(task);
+    });
+  })    
+}
 
 
 
 
+
+
+
+
+
+export async function deleteTask(userId,taskId){
+  try{
+    const taskDocRef=doc(db,`users/${userId}/tasks`,taskId);
+    await deleteDoc(taskDocRef);  
+    console.log("Task deleted successfully");
+
+  }catch(error){
+    console.error("Error deleting task:", error);
+    throw new Error("Failed to delete task");
+  }
+}
+
+
+
+const deltebutton = document.querySelector('.deleteBtn');
+if(deltebutton){  
+  deltebutton.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const taskId = card.id
+    try {
+      await deleteTask(userId, taskId);
+      console.log("Task deleted successfully");
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  });
+}  
