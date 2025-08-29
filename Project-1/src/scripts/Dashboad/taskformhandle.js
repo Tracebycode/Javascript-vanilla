@@ -76,14 +76,6 @@ function createtaskform(closeForm){
                 <option value="high">High</option>
               </select>
             </div>
-            <div class="mb-2">
-              <label for="taskStatus" class="block text-sm font-medium text-[#1da1f2]">Status</label>
-              <select id="taskStatus" name="taskStatus" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#1da1f2] focus:border-[#1da1f2] sm:text-sm">
-                <option value="not-started">Not Started</option>
-                <option value="in-progress">In Progress</option>
-                <option value="completed">Completed</option>
-              </select>
-            </div>
             <div  class="mb-2">
               <label for ="category" class="block text-sm font-medium text-[#1da1f2]">Category</label>
               <select id="category" name="category" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#1da1f2] focus:border-[#1da1f2] sm:text-sm">

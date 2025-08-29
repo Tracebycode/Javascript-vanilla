@@ -48,7 +48,15 @@ taskfromhandling();
 // You can use `currentusername` in your application logic as needed
 
 
+// completed container
+const completecontainerbutton  = document.querySelector('#completedBtn');
+const completecontainer  = document.querySelector('.completed-container');
+const taskContainer = document.querySelector('.task-container'); // active tasks
 
+completecontainerbutton.addEventListener('click',()=>{
+    taskContainer.classList.toggle('hidden');
+  completecontainer.classList.toggle('hidden');
+})
 
 
 
