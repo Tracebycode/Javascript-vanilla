@@ -1,5 +1,5 @@
 import {db} from '../firebase.js';
-import { doc,collection, addDoc, orderBy, onSnapshot, query,serverTimestamp ,deleteDoc} from 'firebase/firestore';
+import { doc,collection, addDoc, orderBy, onSnapshot, query,serverTimestamp ,deleteDoc,updateDoc} from 'firebase/firestore';
 import { auth } from "../firebase.js"; // make sure you import this
 
 
@@ -90,6 +90,7 @@ export function addtaskcard(task) {
     <div class="grid grid-cols-2 gap-4">
       <p><span class="font-semibold">Category:</span> ${task.category || 'Uncategorized'}</p>
       <p><span class="font-semibold">Created:</span> ${formatDate(task.createdAt)}</p>
+      <p><span class="font-semibold">taskStatus:</span> ${task.taskStatus || 'No priority'}</p>
     </div>
     ${task.comments ? `<div><span class="font-semibold">Comments:</span><div class="mt-1 p-2 bg-gray-50 rounded text-gray-700">${task.comments}</div></div>` : ''}
   `;
@@ -132,18 +133,18 @@ export function addtaskcard(task) {
   checkbox.addEventListener('change', async () => {
     const isCompleted = checkbox.checked;
     
-    // Update UI immediately
-    if (isCompleted) {
-      taskTitle.classList.add('line-through', 'text-gray-500');
-      card.classList.add('opacity-75');
-    } else {
-      taskTitle.classList.remove('line-through', 'text-gray-500');
-      card.classList.remove('opacity-75');
-    }
+    
 
     try {
-      // Update task status in your backend
-      // await updateTaskStatus(task.id, isCompleted ? 'completed' : 'pending');
+      if (isCompleted) {
+        taskTitle.classList.add('line-through', 'text-gray-500');
+        card.classList.remove('opacity-75');
+        updateTask(auth.currentUser.uid, task.id, 'completed');
+      } else {
+        taskTitle.classList.remove('line-through', 'text-gray-500');
+        card.classList.add('opacity-75');
+        updateTask(auth.currentUser.uid, task.id, 'pending');
+      }
       console.log(`Task ${task.id} status updated to ${isCompleted ? 'completed' : 'pending'}`);
     } catch (error) {
       console.error('Error updating task status:', error);
@@ -152,9 +153,11 @@ export function addtaskcard(task) {
       if (isCompleted) {
         taskTitle.classList.remove('line-through', 'text-gray-500');
         card.classList.remove('opacity-75');
+        updateTask(auth.currentUser.uid, task.id, 'completed');
       } else {
         taskTitle.classList.add('line-through', 'text-gray-500');
         card.classList.add('opacity-75');
+        updateTask(auth.currentUser.uid, task.id, 'pending');
       }
     }
   });
@@ -228,11 +231,23 @@ export function listentoTask(userId){
   const q = query(taskcollectionRef, orderBy('createdAt', 'desc'));
   onSnapshot(q,(snapshot)=>{
     const taskcontainer =document.querySelector('.task-container');
+    const completecontainer = document.querySelector('.completed-container');
+    completecontainer.innerHTML = '';
     taskcontainer.innerHTML = '';  
     snapshot.forEach((doc) => {
       const task = doc.data();
       task.id = doc.id; 
-      addtaskcard(task);
+      if(task.taskStatus==="completed"){
+        const card = addtaskcard(task);
+        if(card){
+          completecontainer.appendChild(card);
+        }
+      }else{
+        const card = addtaskcard(task);
+        if(card){
+          taskcontainer.appendChild(card);
+        } 
+      }
     });
   })    
 }
@@ -268,3 +283,17 @@ export async function deleteTask(userId,taskId){
 
 
 
+//update task functionality
+export async function updateTask(userID,taskId,status){
+  try{
+    const taskDocRef = doc(db,`users/${userID}/tasks`,taskId);
+    await updateDoc(taskDocRef,{
+      taskStatus:status
+    })
+      
+    
+  }
+  catch(error){
+      console.error("Error updating task:", error);
+    }
+}

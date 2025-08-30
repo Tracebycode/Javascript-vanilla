@@ -59,7 +59,11 @@ completecontainerbutton.addEventListener('click',()=>{
 })
 
 
-
+const mytaskbutton = document.querySelector('#mytaskBtn');
+mytaskbutton.addEventListener('click',()=>{
+  taskContainer.classList.remove('hidden');
+  completecontainer.classList.add('hidden');
+})
 
 
 
