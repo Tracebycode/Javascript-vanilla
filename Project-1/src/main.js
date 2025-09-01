@@ -52,10 +52,13 @@ taskfromhandling();
 const completecontainerbutton  = document.querySelector('#completedBtn');
 const completecontainer  = document.querySelector('.completed-container');
 const taskContainer = document.querySelector('.task-container'); // active tasks
+const prority = document.querySelector('#high-priority');
+const prioritycontainer = document.querySelector('.priority-container');
 
 completecontainerbutton.addEventListener('click',()=>{
-    taskContainer.classList.toggle('hidden');
-  completecontainer.classList.toggle('hidden');
+    taskContainer.classList.add('hidden');
+  completecontainer.classList.remove('hidden');
+   prioritycontainer.classList.add('hidden');
 })
 
 
@@ -63,8 +66,16 @@ const mytaskbutton = document.querySelector('#mytaskBtn');
 mytaskbutton.addEventListener('click',()=>{
   taskContainer.classList.remove('hidden');
   completecontainer.classList.add('hidden');
+   prioritycontainer.classList.add('hidden');
 })
 
+
+
+prority.addEventListener('click',()=>{
+  taskContainer.classList.add('hidden');
+  completecontainer.classList.add('hidden');
+  prioritycontainer.classList.remove('hidden');
+})
 
 
 

@@ -232,6 +232,8 @@ export function listentoTask(userId){
   onSnapshot(q,(snapshot)=>{
     const taskcontainer =document.querySelector('.task-container');
     const completecontainer = document.querySelector('.completed-container');
+    const prioritycontainer = document.querySelector('.priority-container');
+    prioritycontainer.innerHTML='';
     completecontainer.innerHTML = '';
     taskcontainer.innerHTML = '';  
     snapshot.forEach((doc) => {
@@ -241,12 +243,19 @@ export function listentoTask(userId){
         const card = addtaskcard(task);
         if(card){
           completecontainer.appendChild(card);
+          
         }
       }else{
         const card = addtaskcard(task);
         if(card){
           taskcontainer.appendChild(card);
         } 
+      };
+      if(task.taskPriority==="High" ){
+        const card = addtaskcard(task);
+        if(card){
+          prioritycontainer.appendChild(card);
+        }
       }
     });
   })    
