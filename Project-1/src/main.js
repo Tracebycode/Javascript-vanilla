@@ -2,7 +2,7 @@
 import {taskfromhandling} from './scripts/Dashboad/taskformhandle'
 import { auth } from '/src/scripts/firebase.js';
 import { onAuthStateChanged } from 'firebase/auth';
-import { listentoTask } from './scripts/Dashboad/Card.js';
+import {  listentoTask } from './scripts/Dashboad/Card.js';
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
@@ -17,7 +17,7 @@ onAuthStateChanged(auth, (user) => {
     }
     console.log("Profile picture set to:", currentuserpicture);
     listentoTask(user.uid); // Listen to tasks for the current user
-
+   
   }
 });
 

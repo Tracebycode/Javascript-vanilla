@@ -52,7 +52,7 @@ function openForm() {
 
 
 
-function createtaskform(closeForm){
+function createtaskform(closeForm,tasktoedit=null){
     const formcontainer = document.createElement('div');
     formcontainer.className='flex  px-5  max-w-md mx-auto w-full  border-2 border-gray-300 shadow-lg rounded-lg items-center justify-center z-50 '
     formcontainer.innerHTML=`
@@ -97,6 +97,8 @@ function createtaskform(closeForm){
             </div>
           </form>`;
 
+          const isEditMode = !!tasktoedit;
+
         formcontainer.querySelector('#taskForm').addEventListener('submit', async(e) => {
         e.preventDefault(); // Prevent page reload
 
@@ -113,11 +115,18 @@ function createtaskform(closeForm){
         console.log('Task Details:', taskDetails);
 
         try{
+          if(isEditMode){
+             await updateTask(user.uid, taskToEdit.id, taskDetails); // update existing task
+        console.log("Task updated:", taskDetails);
+        closeForm();
+        return;
+          }else{
           const taskRef = await addtask(taskDetails,user.uid);
 
           console.log('Task added successfully to the firebase', taskRef);
          
-          closeForm(); // Add the task card to the UI          
+          closeForm(); // Add the task card to the UI   
+          }       
 
         }catch(error){
           console.error("Error adding task:", error);

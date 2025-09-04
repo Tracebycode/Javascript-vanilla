@@ -249,9 +249,10 @@ export function listentoTask(userId){
         const card = addtaskcard(task);
         if(card){
           taskcontainer.appendChild(card);
+          console.log(task)
         } 
       };
-      if(task.taskPriority==="High" ){
+      if(task.taskPriority==="high" ){
         const card = addtaskcard(task);
         if(card){
           prioritycontainer.appendChild(card);
